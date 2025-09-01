@@ -1,5 +1,7 @@
 package ee.taltech.algoritmid.fibonacci;
 
+import java.math.BigInteger;
+
 public class P1 {
 
     /**
@@ -15,16 +17,17 @@ public class P1 {
             return "1";
         }
 
-        long a = 0, b = 1; // initialiseerib nr
+        BigInteger a = BigInteger.ZERO;
+        BigInteger b = BigInteger.ONE; // initialiseerib nr, big kuna longist ei piisanud
 
         for (int i = 2; i <= n; i++) {  // i aka counter phm,2-st sest essal kahel vastus juba,
             // suurenda iga iteratsioon 1 vorra
-            long newB = a + b;
+            BigInteger newB = a.add(b);
             a = b;
             b = newB;
         }
 
-        return String.valueOf(b);
+        return b.toString();  // anna tagasi teksti nrina
     }
 
     public static void main(String[] args) throws Exception {
