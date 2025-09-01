@@ -17,8 +17,14 @@ public class P1 {
 
         int a = 0, b = 1; // initialiseerib nr
 
+        for (int i = 2; i <= n; i++) {  // i aka counter phm,2-st sest essal kahel vastus juba,
+            // suurenda iga iteratsioon 1 vorra
+            int newB = a + b;
+            a = b;
+            b = newB;
+        }
 
-        return "";
+        return String.valueOf(b);
     }
 
     public static void main(String[] args) throws Exception {
