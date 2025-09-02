@@ -28,6 +28,6 @@ public class P1Extra {
 
 
     public static void main(String[] args) {
-        System.out.println(timeToComputeRecursiveFibonacci(50));
+        System.out.println(timeToComputeRecursiveFibonacci(20));
     }
 }
