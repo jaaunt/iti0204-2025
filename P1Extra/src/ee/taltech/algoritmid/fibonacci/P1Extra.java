@@ -9,7 +9,7 @@ public class P1Extra {
         return recursiveF(n - 1).add(recursiveF(n - 2));}
 
     public static String timeToComputeRecursiveFibonacci(int n) {
-        int base = 40;
+        int base = 10;
 
         double start = System.nanoTime();
         recursiveF(base);
@@ -28,6 +28,6 @@ public class P1Extra {
 
 
     public static void main(String[] args) {
-        System.out.println(timeToComputeRecursiveFibonacci(20));
+        System.out.println(timeToComputeRecursiveFibonacci(10));
     }
 }
