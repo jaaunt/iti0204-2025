@@ -9,6 +9,21 @@ public class P1Extra {
         return recursiveF(n - 1).add(recursiveF(n - 2));}
 
     public static String timeToComputeRecursiveFibonacci(int n) {
+        if (n >= 30) {
+            int base = 30;
+
+            double start = System.nanoTime();
+            recursiveF(base);
+            double end = System.nanoTime();
+
+            double dif = end /start;
+            double diff_sec = (dif / 1_000_000_000);
+            double year = diff_sec / 606024*365;
+            System.out.println(year);
+
+            double fulltime = (n * year)/base;
+            return Double.toString(fulltime);
+        }
         int base = 30;
 
         double start = System.nanoTime();
