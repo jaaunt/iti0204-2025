@@ -3,47 +3,53 @@ package ee.taltech.algoritmid.fibonacci;
 import java.math.BigInteger;
 
 public class P1Extra {
+
+    /**
+     * Compute the Fibonacci sequence number recursively.
+     * (You need this in the timeToComputeRecursiveFibonacci(int n) function!)
+     * @param n The n-th number to compute.
+     * @return The n-th Fibonacci number as a string.
+     */
     public static BigInteger recursiveF(int n) {
         if (n <= 1)
             return BigInteger.valueOf(n);
-        return recursiveF(n - 1).add(recursiveF(n - 2));}
+        return recursiveF(n - 1).add(recursiveF(n - 2));
+    }
 
+    /**
+     * Estimate or find the exact time required to compute the n-th Fibonacci number.
+     * @param n The n-th number to compute.
+     * @return The time estimate or exact time in YEARS.
+     *
+     */
     public static String timeToComputeRecursiveFibonacci(int n) {
         if (n >= 30) {
             int base = 30;
 
-            double start = System.nanoTime();
+            long start = System.nanoTime();
             recursiveF(base);
-            double end = System.nanoTime();
+            long end = System.nanoTime();
 
-            double dif = end - start;
-            double diff_sec = (dif / 1_000_000_000);
-            double year = diff_sec / 60*60*24*365;
-            System.out.println(year);
+            double diffSec = (end - start) / 1_000_000_000.0;
+            double estimate = diffSec * Math.pow((1 + Math.sqrt(5)) / 2, n - base);
+            double years = estimate / (60.0 * 60.0 * 24.0 * 365.0);
 
-            double yearReal = (n * year) / base;
-            return Double.toString(yearReal);
-
-
+            System.out.println(years);
+            return Double.toString(years);
         }
 
-        double start = System.nanoTime();
+        long start = System.nanoTime();
         recursiveF(n);
-        double end = System.nanoTime();
+        long end = System.nanoTime();
 
-        double dif = end - start;
-        double diff_sec = (dif / 1_000_000_000);
-        double year = diff_sec / 60*60*24*365;
-        System.out.println(year);
-        return Double.toString(year);
+        double diffSec = (end - start) / 1_000_000_000.0;
+        double years = diffSec / (60.0 * 60.0 * 24.0 * 365.0);
+
+        System.out.println(years);
+        return Double.toString(years);
     }
-
-    BigInteger subtractBigInteger(BigInteger minuend, int subtrahend) {
-        return minuend.subtract(BigInteger.valueOf(subtrahend));
-    }
-
 
     public static void main(String[] args) {
-        System.out.println(timeToComputeRecursiveFibonacci(30));
+        System.out.println(timeToComputeRecursiveFibonacci(20));
     }
 }
