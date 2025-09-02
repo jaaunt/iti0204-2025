@@ -18,21 +18,22 @@ public class P1Extra {
 
             double dif = end /start;
             double diff_sec = (dif / 1_000_000_000);
-            double year = diff_sec / 606024*365;
+            double year = diff_sec / 60*60*24*365;
             System.out.println(year);
 
-            double fulltime = (n * year)/base;
-            return Double.toString(fulltime);
+            double yearReal = (n * year) / base;
+            return Double.toString(year);
+
+
         }
-        int base = 30;
 
         double start = System.nanoTime();
-        recursiveF(base);
+        recursiveF(n);
         double end = System.nanoTime();
 
         double dif = end /start;
         double diff_sec = (dif / 1_000_000_000);
-        double year = diff_sec / 606024*365;
+        double year = diff_sec / 60*60*24*365;
         System.out.println(year);
         return Double.toString(year);
     }
