@@ -5,6 +5,10 @@ import java.util.Comparator;
 
 public class GuessingGame {
 
+    // privaatne massiiv gameOne jaoks, et sorteerida ainult üks kord
+    // muidu ma tegi mitu korda ja see ei olnud optimaalne
+    private Product[] sortedProductsGameOne = null;
+
     public GuessingGame() {
         // don't remove
         // sisaldab molemaid mange
@@ -16,13 +20,18 @@ public class GuessingGame {
      * @return the name of the correct product.
      */
     public String gameOne(Bot bot, Product[] productArray) {
-        Product[] sortedProducts = Arrays.copyOf(productArray, productArray.length);
-        // teeb koopia arrayst et kogemata orginaal ei muudaks :)
-        Arrays.sort(sortedProducts, Comparator.comparingDouble(Product::getPrice));
-        // sorteerime array hinna jargi, kuna binaar otsing tootab ainult sorteeritud arraydega
+        // sorteeri massiiv ainult esimest korda
+        // aka kui see on null
+        if (sortedProductsGameOne == null) {
+            sortedProductsGameOne = Arrays.copyOf(productArray, productArray.length);
+            // teeb koopia arrayst et kogemata orginaal ei muudaks :)
+            // see rida also muudab sortedProductsGameOne mitte nulliks
+            Arrays.sort(sortedProductsGameOne, Comparator.comparingDouble(Product::getPrice));
+            // sorteerime array hinna jargi, kuna binaar otsing tootab ainult sorteeritud arraydega
+        }
 
         int left = 0;
-        int right = sortedProducts.length - 1;
+        int right = sortedProductsGameOne.length - 1;
         // maarab otsitava vahemiku indexsitd kuna algab nullist ss left on 0
         // teine on siis array pikkus mis ei alga nullist seega korrektse pikkuse jaoks peab tegema -1
 
@@ -31,7 +40,7 @@ public class GuessingGame {
             int mid = (left + right) / 2;
             // leiab keskkoha mida kusib boti kaest, optimaalne kuna siis saab kas suurema voi vaiksema
             // vastusel tapselt pool listi
-            Product guessProduct = sortedProducts[mid];
+            Product guessProduct = sortedProductsGameOne[mid];
             // paku see product
             String response = bot.isIt(guessProduct.getPrice());
             // kusi boti kaest kas see on oige?
