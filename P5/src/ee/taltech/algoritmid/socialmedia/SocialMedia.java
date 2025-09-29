@@ -24,19 +24,23 @@ public class SocialMedia {
      * @param url  - website address
      * @param http - http request method
      */
-    public void addVisit(String url, String http) throws IllegalArgumentException {
+    public void addVisit(String url, String http) {
         validateHttp(http);
         String key = makeKey(url, http);
         int newCount = visits.getOrDefault(key, 0) + 1;
         visits.put(key, newCount);
 
         if (newCount > top1) {
-            top2 = top1;
             top1 = newCount;
+            top2 = visits.values().stream()
+                    .filter(v -> v < top1)
+                    .max(Integer::compareTo)
+                    .orElse(0);
         } else if (newCount > top2 && newCount < top1) {
             top2 = newCount;
         }
     }
+
 
     /**
      * @param url  - website address
