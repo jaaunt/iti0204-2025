@@ -53,24 +53,13 @@ public class SocialMedia {
      * @return the number of visits of the most visited website
      */
     public Integer getTop1() {
-        if (visits.isEmpty()) {
-            return 0;
-        }
-        return Collections.max(visits.values());
+        return top1;
     }
 
     /**
      * @return the list of the number of visits of the top 2 most visited websites sorted in descending order
      */
     public List<Integer> getTop2() {
-        if (visits.isEmpty()) {
-            return List.of();
-        }
-        List<Integer> counts = new ArrayList<>(visits.values());
-        counts.sort(Collections.reverseOrder());
-        if (counts.size() == 1) {
-            return List.of(counts.get(0));
-        }
-        return List.of(counts.get(0), counts.get(1));
+        return List.of(top1, top2);
     }
 }
