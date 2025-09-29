@@ -7,6 +7,9 @@ public class SocialMedia {
     private final Map<String, Integer> visits = new HashMap<>();
     private static final Set<String> ALLOWED_HTTP = Set.of("GET", "POST", "PUT", "DELETE");
 
+    private int top1 = 0;
+    private int top2 = 0;
+
     private String makeKey(String url, String http) {
         return url + "|" + http;
     }
@@ -24,7 +27,15 @@ public class SocialMedia {
     public void addVisit(String url, String http) throws IllegalArgumentException {
         validateHttp(http);
         String key = makeKey(url, http);
-        visits.put(key, visits.getOrDefault(key, 0) + 1);
+        int newCount = visits.getOrDefault(key, 0) + 1;
+        visits.put(key, newCount);
+
+        if (newCount > top1) {
+            top2 = top1;
+            top1 = newCount;
+        } else if (newCount > top2 && newCount < top1) {
+            top2 = newCount;
+        }
     }
 
     /**
