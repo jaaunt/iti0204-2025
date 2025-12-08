@@ -39,7 +39,7 @@ public class P15 {
             addPerson(name2);
         }
 
-        // salvestame vanad juurte osakonna info
+        // salvestame vanad juurte osakonna info ENNE union'it
         String root1 = disjointSubsets.find(name1);
         String root2 = disjointSubsets.find(name2);
 
@@ -49,15 +49,18 @@ public class P15 {
         // uhendame grupid
         disjointSubsets.union(name1, name2);
 
-        // uuendame uue juure osakonna infot
+        // leiame uue juure PARAST union'it
         String newRoot = disjointSubsets.find(name1);
 
+        // maarame uuele juurele oige osakonna
         // kui molemal oli osakond maaratud, peaks need olema samad
-        // (kuna nad suhtlesid omavahel, peavad nad olema samast osakonnast)
         if (dept1 != null && dept1 != Department.UNKNOWN) {
             departmentByRoot.put(newRoot, dept1);
         } else if (dept2 != null && dept2 != Department.UNKNOWN) {
             departmentByRoot.put(newRoot, dept2);
+        } else {
+            // kui kumbki pole teada, jaab UNKNOWN
+            departmentByRoot.put(newRoot, Department.UNKNOWN);
         }
     }
 
@@ -75,16 +78,28 @@ public class P15 {
 
     // maarab, et see inimene on CS osakonnast
     public void setCustomerSupport(String name) {
-        addPerson(name);
-        String root = disjointSubsets.find(name);
-        departmentByRoot.put(root, Department.CUSTOMER_SUPPORT);
+        // lisame inimese kui pole juba susteemis
+        try {
+            disjointSubsets.addSubset(name);
+            departmentByRoot.put(name, Department.CUSTOMER_SUPPORT);
+        } catch (IllegalArgumentException e) {
+            // inimene on juba susteemis, leiame tema juure ja maarame osakonna
+            String root = disjointSubsets.find(name);
+            departmentByRoot.put(root, Department.CUSTOMER_SUPPORT);
+        }
     }
 
     // maarab, et see inimene on R&D osakonnast
     public void setResearchAndDevelopment(String name) {
-        addPerson(name);
-        String root = disjointSubsets.find(name);
-        departmentByRoot.put(root, Department.RESEARCH_AND_DEVELOPMENT);
+        // lisame inimese kui pole juba susteemis
+        try {
+            disjointSubsets.addSubset(name);
+            departmentByRoot.put(name, Department.RESEARCH_AND_DEVELOPMENT);
+        } catch (IllegalArgumentException e) {
+            // inimene on juba susteemis, leiame tema juure ja maarame osakonna
+            String root = disjointSubsets.find(name);
+            departmentByRoot.put(root, Department.RESEARCH_AND_DEVELOPMENT);
+        }
     }
 
     // tagastab inimese osakonna
