@@ -81,12 +81,12 @@ public class P15 {
         // lisame inimese kui pole juba susteemis
         try {
             disjointSubsets.addSubset(name);
-            departmentByRoot.put(name, Department.CUSTOMER_SUPPORT);
         } catch (IllegalArgumentException e) {
-            // inimene on juba susteemis, leiame tema juure ja maarame osakonna
-            String root = disjointSubsets.find(name);
-            departmentByRoot.put(root, Department.CUSTOMER_SUPPORT);
+            // inimene on juba susteemis
         }
+        // leiame juure ja maarame osakonna
+        String root = disjointSubsets.find(name);
+        departmentByRoot.put(root, Department.CUSTOMER_SUPPORT);
     }
 
     // maarab, et see inimene on R&D osakonnast
@@ -94,12 +94,12 @@ public class P15 {
         // lisame inimese kui pole juba susteemis
         try {
             disjointSubsets.addSubset(name);
-            departmentByRoot.put(name, Department.RESEARCH_AND_DEVELOPMENT);
         } catch (IllegalArgumentException e) {
-            // inimene on juba susteemis, leiame tema juure ja maarame osakonna
-            String root = disjointSubsets.find(name);
-            departmentByRoot.put(root, Department.RESEARCH_AND_DEVELOPMENT);
+            // inimene on juba susteemis
         }
+        // leiame juure ja maarame osakonna
+        String root = disjointSubsets.find(name);
+        departmentByRoot.put(root, Department.RESEARCH_AND_DEVELOPMENT);
     }
 
     // tagastab inimese osakonna
