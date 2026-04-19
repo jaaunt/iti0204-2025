@@ -1,3 +1,5 @@
 # iti0204-2025
 
-Correct solutions to multiple course tasks using various algorithms. 
+
+
+Coursework for the Algorithms and Data Structures course at Taltech.
